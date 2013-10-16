@@ -6,9 +6,10 @@ require 'active_support/core_ext'
 class ControllerBase
   attr_reader :params
 
-  def initialize(req, res, route_params)
+  def initialize(req, res, route_params={})
     @req = req
     @res = res
+    @params = Params.new(req)
     @already_built_response = false
   end
 

@@ -25,9 +25,9 @@ end
 
 server.mount_proc '/' do |req, res|
   if req.path =~ /redir_to_(www\..+\..{2,4})(\z|[_\\\b\/+\-])/
-    MyController.new(req, res, req.attributes).redirect_to($1)
+    MyController.new(req, res).redirect_to($1)
   else
-    MyController.new(req, res, req.attributes).go
+    MyController.new(req, res).go
   end
 end
 
