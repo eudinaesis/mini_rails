@@ -9,7 +9,7 @@ class ControllerBase
   def initialize(req, res, route_params={})
     @req = req
     @res = res
-    @params = Params.new(req)
+    @params = Params.new(req, route_params)
     @already_built_response = false
   end
 
@@ -18,6 +18,7 @@ class ControllerBase
   end
 
   def already_rendered?
+    @already_built_response
   end
 
   def redirect_to(url)
@@ -42,6 +43,8 @@ class ControllerBase
     render_content(template_result, "html")
   end
 
-  def invoke_action(name)
+  def invoke_action(action_name)
+    self.send(action_name)
+    render(action_name) unless already_rendered?
   end
 end
